@@ -1,12 +1,14 @@
 <template>
+    <div class="router-view">
     <section class="container py-5">
         <h1 class="py-5">
-            Search Results For '{{$route.params.data}}'
+            Results For '{{$route.params.data}}'
         </h1>
       <item-carousel :mediaItems="movieItems"></item-carousel>
       <item-carousel :mediaItems="tvItems"></item-carousel>
       <item-carousel :mediaItems="personItems"></item-carousel>
     </section>
+    </div>
 </template>
 
 <script>
@@ -28,7 +30,7 @@ export default {
     methods: {
 
     },
-computed: {
+    computed: {
     ...mapGetters({ 
         movieItems: 'getMovieItems',
         tvItems: 'getTvItems',

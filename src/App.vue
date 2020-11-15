@@ -1,11 +1,7 @@
 <template>
   <div id="app" class="container-fluid">
     <header>
-      <nav id="nav">
-        <router-link :to="{name: 'Home'}">Home</router-link> |
-        <router-link :to="{name: 'Discover'}">Discover</router-link>
-        <api-search-form ></api-search-form>
-      </nav> 
+      <navbar />
     </header>
     <main class="min-vh-100">
       <router-view />
@@ -23,7 +19,7 @@ Vue.use(IconsPlugin)
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
-import ApiSearchForm from './components/ApiSearchForm.vue';
+import Navbar from './components/Navbar.vue';
 import MainFooter from './components/MainFooter.vue';
 
 
@@ -31,8 +27,8 @@ import MainFooter from './components/MainFooter.vue';
 export default {
   name: "App",
   components: {
-    ApiSearchForm,
-    MainFooter
+    MainFooter,
+    Navbar
   },
   data: function () {
   return {
@@ -61,21 +57,23 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: white;
+  background-color: rgb(7, 14, 22);
   padding: 0;
 }
-
-#nav {
-  padding: 30px;
-  border-bottom: 1px solid #42b983;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+a {
+    text-emphasis: none;
+    text-decoration: none;
+    color: white;
+    opacity: 0.7;
+}
+a:hover {
+  color: white;
+  text-emphasis: none;
+  text-decoration: none;
+  opacity: 1;
+}
+.router-view {
+  background: linear-gradient(-90.68deg, #061c24e1 0%, #082025f3 49.72%,  #09252cd5 100%)
 }
 </style>

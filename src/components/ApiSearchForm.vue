@@ -1,25 +1,27 @@
 <template>
-    <div>
-        <form @submit.prevent="onSubmit">
+            <b-nav-form @submit.prevent="onSubmit">
+              <div class="row no-gutters align-items-center">
+                  <div class="col">
+                          <input class="form-control rounded-pill pr-5" id="search-input" type="text" v-model="search" placeholder="Search content">
+                  </div>
+                  <div class="col-auto">
+                          <button class="btn btn-outline-light text-dark border-0 rounded-pill ml-n5" type="button">
+                              <i class="fa fa-search"></i>
+                          </button>
+                  </div>
+              </div>
+            </b-nav-form>
+        <!-- <b-nav-form @submit.prevent="onSubmit">
+          <b-form-input size="lg" class="mr-sm-2" id="search-input" type="text" v-model="search" placeholder="Search content"></b-form-input>
+          <b-button size="lg" class="my-2 my-sm-0" type="submit">Search</b-button>
+        </b-nav-form> -->
+        <!-- <form @submit.prevent="onSubmit">
             <div class="row justify-content-center">
-                <!-- <div class="col-12 col-md-6">
-                    <label id="form-label" for="search-input">The Movie Database</label>
-                </div> -->
-                <div class="col-12 col-md-10 col-lg-7">
+                <div class="col-11 col-md-10 col-lg-7 col-xl-5">
                     <input id="search-input" type="text" v-model="search" placeholder="Search content" />
                 </div>
             </div>
-        </form>
-        <!-- <b-input-group size="lg">
-            <b-input-group-prepend is-text>
-                <b-iconstack font-scale="2" variant="secondary">
-                    <b-icon stacked icon="search" font-scale="1"></b-icon>
-                    <b-icon stacked icon="circle"></b-icon>
-                </b-iconstack>
-            </b-input-group-prepend>
-            <b-form-input @submit.prevent="onSubmit" id="search-input" type="text" v-model="search" placeholder="Search creators, videos and more!"></b-form-input>
-        </b-input-group> -->
-    </div>
+        </form> -->
 </template>
 
 <script>
@@ -31,6 +33,7 @@ export default {
         BIcon,
         BIconstack
     },*/
+    name: "ApiSearchForm",
     methods: {
         ...mapActions({ searchTMDB: "searchTMDB"}),
         onSubmit() {
@@ -66,21 +69,24 @@ export default {
 </script>
 
 <style scoped>
-input::placeholder {
-  color: rgb(150, 150, 150);
+input::placeholder, .fa-search {
+  /* color: rgb(46, 46, 46); */
+  color: rgba(255, 255, 255, 0.5);
   font-size: 1.2em;
   }
 #search-input {
     text-indent: 10px;
     height: 3.5rem;
-    width: 100%;
+    width: auto;
     border-width: 2px;
     border-inline-color: green;
     border-style: solid;
     border-block-color: green;
-    color: black;
+    color: rgba(255, 255, 255);
     border-radius: 20pt;
-    text-align: left;
-    background: #ffffff9d;
+    background: #ffffff2c;
+}
+#search-input:focus {
+    box-shadow: 0 0 0 1.2rem rgba(55, 249, 212, 0.07);
 }
 </style>

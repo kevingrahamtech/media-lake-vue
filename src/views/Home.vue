@@ -1,5 +1,5 @@
 <template>
-  <section class="home">
+  <section class="home router-view">
     <Landing/>
   </section>
 </template>

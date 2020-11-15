@@ -66,22 +66,22 @@ export default new Vuex.Store({
         // resultObj[movies] = movies
         // // console.log(media);
         // // commit('updateMovieTrending', {data: media})
-        commit('updateTrendingItems', {data: movies})
+        commit('updateMovieTrending', {data: movies})
       })
-      // Axios.get(baseURI + endpoint.trending.tv + keyPref+apiV3Key)
-      // .then((response) => {
-      //   let tv = response.data.results
-      //   resultObj[tv] = tv
-      //   // console.log(media);
-      //   // commit('updateTvTrending', {data: media})
-      // })
-      // Axios.get(baseURI + endpoint.trending.person + keyPref+apiV3Key)
-      // .then((response) => {
-      //   let persons = response.data.results
-      //   resultObj[persons] = persons
-      //   // console.log(media);
-      //   // commit('updatePersonTrending', {data: media})
-      // })
+      Axios.get(baseURI + endpoint.trending.tv + keyPref+apiV3Key)
+      .then((response) => {
+        let tv = response.data.results
+        // resultObj[tv] = tv
+        // console.log(media);
+        commit('updateTvTrending', {data: tv})
+      })
+      Axios.get(baseURI + endpoint.trending.person + keyPref+apiV3Key)
+      .then((response) => {
+        let persons = response.data.results.filter(item => item.profile_path != null)
+        // resultObj[persons] = persons
+        // console.log(media);
+        commit('updatePersonTrending', {data: persons})
+      })
 
       // commit('updateTrendingItems', {data: resultObj})
     },
@@ -106,6 +106,9 @@ export default new Vuex.Store({
       return state.TrendingItems
         .filter(item => item.media_type === mediaType)
     },
+    getMovieTrending: state => state.MovieTrending,
+    getTvTrending: state => state.TvTrending,
+    getPersonTrending: state => state.PersonTrending,
     getMovieItems: state => state.movieItems,
     getTvItems: state => state.tvItems,
     getPersonItems: state => state.personItems,

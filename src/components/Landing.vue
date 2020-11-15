@@ -1,8 +1,8 @@
 <template>
     <section class="container py-5">
-      <item-carousel :mediaItems="getTrending('movie')"></item-carousel>
-      <item-carousel :mediaItems="getTrending('tv')"></item-carousel>
-      <item-carousel :mediaItems="getTrending('person')"></item-carousel>
+      <item-carousel :mediaItems="getMovieTrending"></item-carousel>
+      <item-carousel :mediaItems="getTvTrending"></item-carousel>
+      <item-carousel :mediaItems="getPersonTrending"></item-carousel>
     </section>
 </template>
 
@@ -23,7 +23,7 @@ export default {
         this.searchTrending()
     },
     computed: {
-        ...mapGetters(['getTrending']),
+        ...mapGetters(['getTrending', 'getMovieTrending', 'getTvTrending', 'getPersonTrending']),
         // trendingmovie: this.getTrending(movie)
     }
 
