@@ -11,6 +11,8 @@ const keyPref= "?api_key=";
 const apiV3Key= "a6817d1e66ed3d6719d7f43eb77d2969";
 const endpoint = {
   configuration: "/configuration",
+  genres: "/genre/movie/list",
+  details: {movie: "/movie/", tv: "/tv/",append:"&append_to_response="},
   trending: {
     all: "/trending/all/day",
     movie: "/trending/movie/day",
@@ -21,17 +23,25 @@ const endpoint = {
 
 export default new Vuex.Store({
   state: {
-    configuration: null,
+    ApiConf: [],
+    GenreList: null,
     TrendingItems: null,
-    MovieTrending: null,
-    TvTrending: null,
-    PersonTrending: null,
+    MovieTrending: [],
+    TvTrending: [],
+    PersonTrending: [],
     movieItems: null,
     tvItems: null,
     personItems: null,
-    searchTerm: null
+    searchTerm: null,
+    details: null,
   },
   mutations: {
+    updateApiConf(state, payload) {
+      state.ApiConf = payload.data;
+    },
+    updateGenreList(state, payload) {
+      state.GenreList = payload.data;
+    },
     updateTrendingItems(state, payload) {
       state.TrendingItems = payload.data;
     },
@@ -55,9 +65,35 @@ export default new Vuex.Store({
     },
     updateSearchTerm(state, payload) {
       state.SearchTerm = payload.data;
+    },
+    updateDetails(state, payload) {
+      state.details = payload.data;
     }
   },
   actions: {
+    reqConfs: function ({ commit }) {
+      Axios.get(baseURI + endpoint.configuration + keyPref + apiV3Key)
+      .then((response) => {
+        let confs = response.data.images
+        console.log("apiConfigs: ", confs)
+        commit('updateApiConf', {data: confs})
+      })
+      Axios.get(baseURI + endpoint.genres + keyPref + apiV3Key)
+      .then((response) => {
+        let genres = response
+        console.log("genreList: ", genres)
+        commit('updateGenreList', {data: genres})
+      })
+    },
+    reqDetails({ commit }, payload) {
+      // let resultObj = {};
+      Axios.get(baseURI + endpoint.details.movie + payload.id + keyPref+apiV3Key)
+      .then((response) => {
+        let details = response.data
+        console.log(details)
+        commit('updateDetails', {data: details})
+      })
+    },
     searchTrending({ commit }) {
       // let resultObj = {};
       Axios.get(baseURI + endpoint.trending.movie + keyPref+apiV3Key)
@@ -102,10 +138,13 @@ export default new Vuex.Store({
   },
   modules: {},
   getters: {
+    getApiConf: state => state.ApiConf,
+    getGenreList: state => state.GenreList,
     getTrending: (state) => (mediaType) => {
       return state.TrendingItems
         .filter(item => item.media_type === mediaType)
     },
+    getDetails: state => state.details,
     getMovieTrending: state => state.MovieTrending,
     getTvTrending: state => state.TvTrending,
     getPersonTrending: state => state.PersonTrending,

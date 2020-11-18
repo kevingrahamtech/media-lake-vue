@@ -5,7 +5,7 @@
                           <input class="form-control rounded-pill pr-5" id="search-input" type="text" v-model="search" placeholder="Search content">
                   </div>
                   <div class="col-auto">
-                          <button class="btn btn-outline-light text-dark border-0 rounded-pill ml-n5" type="button">
+                          <button class="btn btn-outline-success text-dark border-0 rounded-pill ml-n5" type="button">
                               <i class="fa fa-search"></i>
                           </button>
                   </div>

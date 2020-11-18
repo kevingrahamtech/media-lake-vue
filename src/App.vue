@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="container-fluid">
+  <div id="app" class="">
     <header>
       <navbar />
     </header>
@@ -21,6 +21,7 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 import Navbar from './components/Navbar.vue';
 import MainFooter from './components/MainFooter.vue';
+import { mapActions, mapGetters } from 'vuex'
 
 
 
@@ -36,22 +37,23 @@ export default {
   }
 },
   methods: {
-    getConfs: function () {
-      this.$http.get(this.baseURI + this.endpoint.configuration + this.keyPref+this.apiV3Key)
-      .then((response) => {
-        console.log(response);
-        this.configuration = response
-        console.log("this.configuration: "+ this.configuration)
-      })
-    }
+    ...mapActions(['reqConfs']),
+    ...mapGetters(['getConfs'])
   },
   mounted() {
-    this.getConfs
+    this.reqConfs();
   }
 }
 </script>
 
 <style lang="scss">
+html,body {
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    overflow-x: hidden; 
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -59,7 +61,6 @@ export default {
   text-align: center;
   color: white;
   background-color: rgb(7, 14, 22);
-  padding: 0;
 }
 a {
     text-emphasis: none;
