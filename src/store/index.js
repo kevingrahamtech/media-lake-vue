@@ -12,6 +12,10 @@ const apiV3Key= "a6817d1e66ed3d6719d7f43eb77d2969";
 const endpoint = {
   configuration: "/configuration",
   genres: "/genre/movie/list",
+  discover: {
+    movie: "/discover/movie",
+    tv: "/discover/tv"
+  },
   details: {movie: "/movie/", tv: "/tv/",append:"&append_to_response="},
   trending: {
     all: "/trending/all/day",
@@ -26,13 +30,10 @@ export default new Vuex.Store({
     ApiConf: [],
     GenreList: null,
     TrendingItems: null,
+    DiscoverItems: null,
     MovieTrending: [],
     TvTrending: [],
     PersonTrending: [],
-    movieItems: null,
-    tvItems: null,
-    personItems: null,
-    searchTerm: null,
     details: null,
   },
   mutations: {
@@ -45,6 +46,9 @@ export default new Vuex.Store({
     updateTrendingItems(state, payload) {
       state.TrendingItems = payload.data;
     },
+    updateDiscoverItems(state, payload) {
+      state.DiscoverItems = payload.data;
+    },
     updateMovieTrending(state, payload) {
       state.MovieTrending = payload.data;
     },
@@ -53,18 +57,6 @@ export default new Vuex.Store({
     },
     updatePersonTrending(state, payload) {
       state.PersonTrending = payload.data;
-    },
-    updateMovieItems(state, payload) {
-      state.movieItems = payload.data;
-    },
-    updateTvItems(state, payload) {
-      state.tvItems = payload.data;
-    },
-    updatePersonItems(state, payload) {
-      state.personItems = payload.data;
-    },
-    updateSearchTerm(state, payload) {
-      state.SearchTerm = payload.data;
     },
     updateDetails(state, payload) {
       state.details = payload.data;
@@ -121,22 +113,15 @@ export default new Vuex.Store({
 
       // commit('updateTrendingItems', {data: resultObj})
     },
-    searchTMDB({ commit, state }, payload) {
-      Axios.get(baseURI + endpoint.multiSearch + keyPref+apiV3Key + "&language=en-US&query=" + payload.searchTerm + "&page=1&include_adult=false")
+    discoverTMDB({ commit }, payload) {
+      Axios.get(baseURI + endpoint.discover.movie + keyPref+apiV3Key + "&language=en-US" + "&sort_by=" + payload.query + "&include_adult=false&include_video=false&page=" + payload.page)
       .then((response) => {
         const items = response.data.results.filter(item => item.poster_path != null)
-        console.log(items);
-        var movies = items.filter(item => item.media_type.includes("movie"))
-        commit('updateMovieItems', {data: movies})
-        var tv = items.filter(item => item.media_type.includes("tv"))
-        commit('updateTvItems', {data: tv})
-        var persons = items.filter(item => item.media_type.includes("person"))
-        commit('updatePersonItems', {data: persons})
-        console.log("movieItems: ", state.movieItems);
+        console.log("discover items: ", items);
+        commit('updateDiscoverItems', {data: items})
       })
     }
   },
-  modules: {},
   getters: {
     getApiConf: state => state.ApiConf,
     getGenreList: state => state.GenreList,
@@ -144,12 +129,59 @@ export default new Vuex.Store({
       return state.TrendingItems
         .filter(item => item.media_type === mediaType)
     },
+    getDiscoverItems: state => state.DiscoverItems,
     getDetails: state => state.details,
     getMovieTrending: state => state.MovieTrending,
     getTvTrending: state => state.TvTrending,
     getPersonTrending: state => state.PersonTrending,
-    getMovieItems: state => state.movieItems,
-    getTvItems: state => state.tvItems,
-    getPersonItems: state => state.personItems,
+
+  },
+  modules: {
+    search: {
+      namespaced: true,
+      // module assets
+      state: () => ({     
+        movieItems: null,
+        tvItems: null,
+        personItems: null,
+        searchTerm: null, 
+      }), // module state is already nested and not affected by namespace option
+      getters: {
+        getMovieItems: state => state.movieItems,
+        getTvItems: state => state.tvItems,
+        getPersonItems: state => state.personItems,
+      },
+      actions: {
+        searchTMDB({ commit, state }, payload) {
+          Axios.get(baseURI + endpoint.multiSearch + keyPref+apiV3Key + "&language=en-US&query=" + payload.searchTerm + "&page=1&include_adult=false")
+          .then((response) => {
+            const items = response.data.results.filter(item => item.poster_path != null)
+            console.log(items);
+            var movies = items.filter(item => item.media_type.includes("movie"))
+            commit('updateMovieItems', {data: movies})
+            var tv = items.filter(item => item.media_type.includes("tv"))
+            commit('updateTvItems', {data: tv})
+            var persons = items.filter(item => item.media_type.includes("person"))
+            commit('updatePersonItems', {data: persons})
+            console.log("movieItems: ", state.movieItems);
+          })
+        }, // -> dispatch('search/TMDB')
+      },
+      mutations: {
+        updateMovieItems(state, payload) {
+          state.movieItems = payload.data;
+        },
+        updateTvItems(state, payload) {
+          state.tvItems = payload.data;
+        },
+        updatePersonItems(state, payload) {
+          state.personItems = payload.data;
+        },
+        updateSearchTerm(state, payload) {
+          state.SearchTerm = payload.data;
+        },
+      },
+
+    },
   }
 });

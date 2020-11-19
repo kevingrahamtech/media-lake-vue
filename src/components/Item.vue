@@ -3,7 +3,6 @@
         <router-link :to="{ name: 'ItemDetail', params: {media_type: this.mediaItem.media_type, id: this.mediaItem.id} }">
             <div class="poster pb-3">
                 <img :src="getApiConf.base_url + getApiConf.poster_sizes[1] + (mediaItem.poster_path || mediaItem.profile_path)" :title="mediaItem.release_date">
-                    
                     <span v-if="mediaItem.vote_average" class="px-1" id="rating" ><i class="fa fa-star"></i> {{ mediaItem.vote_average }}
                 </span>
             </div>

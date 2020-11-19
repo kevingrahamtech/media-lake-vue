@@ -35,7 +35,7 @@ export default {
     },*/
     name: "ApiSearchForm",
     methods: {
-        ...mapActions({ searchTMDB: "searchTMDB"}),
+        ...mapActions({ searchTMDB: "search/searchTMDB"}),
         onSubmit() {
             if(this.search === "") {
                 return
@@ -73,7 +73,7 @@ input::placeholder, .fa-search {
   /* color: rgb(46, 46, 46); */
   color: rgba(255, 255, 255, 0.5);
   font-size: 1.2em;
-  }
+}
 #search-input {
     text-indent: 10px;
     height: 3.5rem;

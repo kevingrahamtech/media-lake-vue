@@ -31,7 +31,7 @@ export default {
 
     },
     computed: {
-    ...mapGetters({ 
+    ...mapGetters('search', { 
         movieItems: 'getMovieItems',
         tvItems: 'getTvItems',
         personItems: 'getPersonItems',
