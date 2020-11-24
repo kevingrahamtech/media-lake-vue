@@ -76,9 +76,9 @@ input::placeholder, .fa-search {
 }
 #search-input {
     text-indent: 10px;
-    height: 3.5rem;
+    height: 2.5rem;
     width: auto;
-    border-width: 2px;
+    border-width: 1px;
     border-inline-color: green;
     border-style: solid;
     border-block-color: green;
@@ -87,6 +87,6 @@ input::placeholder, .fa-search {
     background: #ffffff2c;
 }
 #search-input:focus {
-    box-shadow: 0 0 0 1.2rem rgba(55, 249, 212, 0.07);
+    box-shadow: 0 0 0 .5rem rgba(55, 249, 212, 0.07);
 }
 </style>

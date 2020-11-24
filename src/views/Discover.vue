@@ -13,9 +13,20 @@
                   <option v-for="option in sort_options" :key="option">{{option}}</option>
                 </select>
               </div>
+              <form @submit="onSubmit">
               <div class="col-11 col-md-4 col-lg-1">
+                <input v-model="year" class="input" id="year" placeholder="Year">
+              </div>
+              <!-- <div class="col-11 col-md-4 col-lg-1">
                 <input @submit.prevent="onSubmit" v-model="year" class="input" id="year" placeholder="Year">
               </div>
+              <div class="col-11 col-md-4 col-lg-1">
+                <input @submit.prevent="onSubmit" v-model="Duration" class="input" id="Duration" placeholder="Duration">
+              </div>
+              <div class="col-11 col-md-4 col-lg-1">
+                <input @submit.prevent="onSubmit" v-model="year" class="input" id="year" placeholder="Year">
+              </div> -->
+              </form>
         </div>
         <div class="row py-4">
             <div v-for="item in getDiscoverItems" :key="item.id" class="col-6 col-md-3 col-lg-2">
@@ -56,7 +67,7 @@ export default {
           sort_options: "Least Popular, Most Popular, Oldest, To Be Released, Lowest Revenue, Highest Revenue, Reverse Alphabet, Alphabet, Worst Rated, Highest Rated, Least Voted On, Most Voted On".split(', '),
           sort_input: "Most Voted On",
           year: null,
-          page: 1,
+          page: 1
         }
     },
     props: {
@@ -64,6 +75,7 @@ export default {
     },
     mounted(){
       this.discoverTMDB({query: this.sortValue, page: 1})
+      console.log("Discover items: ",this.getDiscoverItems)
     },
     methods: {
         ...mapActions(["discoverTMDB"]),
@@ -72,7 +84,7 @@ export default {
             this.$router.push({ name: 'Discover', params: {sort: "multi", data: this.query} })
         },
         onSubmit() {
-            this.discoverTMDB({query: this.query, year: "&year="+this.year, page: 1})
+            this.discoverTMDB({query: this.sortValue + "&year="+this.year, page: this.page})
         },
         prevPage(){
           --this.page;
@@ -93,7 +105,6 @@ export default {
         let index = this.sort_options.indexOf(this.sort_input)
         return this.sort_by[index]
       }
-
     }
 
 }
@@ -117,5 +128,13 @@ export default {
 }
 .input{
   width: 100%;
+  height: 44px;
+  background-color: #0F495C;
+  color: white;
+  border-radius: 3px;
+  border-color: rgba(255, 255, 255, 0.411);
+}
+.input::placeholder{
+  color: white;
 }
 </style>

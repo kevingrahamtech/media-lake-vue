@@ -21,7 +21,7 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 import Navbar from './components/Navbar.vue';
 import MainFooter from './components/MainFooter.vue';
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions } from 'vuex'
 
 
 
@@ -37,8 +37,7 @@ export default {
   }
 },
   methods: {
-    ...mapActions(['reqConfs']),
-    ...mapGetters(['getConfs'])
+    ...mapActions(['reqConfs'])
   },
   mounted() {
     this.reqConfs();
@@ -47,6 +46,22 @@ export default {
 </script>
 
 <style lang="scss">
+@font-face {
+  font-family: "Metropolis-Black";
+  src: local("Metropolis-Black"), url(./fonts/Metropolis/Metropolis-Black.otf) format("opentype");
+  }
+@font-face {
+  font-family: "Metropolis-Regular";
+  src: local("Metropolis-Regular"), url(./fonts/Metropolis/Metropolis-Regular.otf) format("opentype");
+  }
+@font-face {
+  font-family: "Metropolis-Bold";
+  src: local("Metropolis-Bold"), url(./fonts/Metropolis/Metropolis-Bold.otf) format("opentype");
+  }
+@font-face {
+  font-family: "Cocon";
+  src: local("Cocon-Regular-Font"), url(./fonts/Cocon/Cocon-Regular-Font.otf) format("opentype");
+  }
 html,body {
     width: 100%;
     height: 100%;
@@ -55,7 +70,7 @@ html,body {
     overflow-x: hidden; 
 }
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: Metropolis-Regular, Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;

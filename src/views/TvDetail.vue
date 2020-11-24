@@ -15,7 +15,7 @@
                             </div>
                         </div>
                         <div class="col-12 text-left mt-4 mr-3">
-                            <span class="px-4 py-2 mr-3" id="year" :title="(getDetails.release_date || getDetails.first_air_date)">{{getDetails.release_date.slice(0, -6)|| getDetails.first_air_date.slice(0, -6)}}</span>                 
+                            <span class="px-4 py-2 mr-3" id="year" :title="getDetails.first_air_date">{{getDetails.first_air_date.slice(0, -6)}}</span>                 
                                 <span class="px-4 py-2" id="rating" title="average rating"><i class="fa fa-star"></i> {{getDetails.vote_average}}</span>
                         </div>
                         <div class="col text-left mt-4">

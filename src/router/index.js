@@ -4,6 +4,7 @@ import Home from "../views/Home.vue";
 import Discover from "../views/Discover.vue";
 import SearchResults from "../views/SearchResults.vue";
 import ItemDetail from "../views/ItemDetail.vue";
+import TvDetail from "../views/TvDetail.vue";
 
 
 
@@ -28,7 +29,14 @@ const routes = [
   {
     path: "/:media_type/:id",
     name: "ItemDetail",
+    props: true,
     component: ItemDetail
+  },
+  {
+    path: "/tv/:id",
+    name: "TvDetail",
+    props: true,
+    component: TvDetail
   },
   {
     path: "/about",

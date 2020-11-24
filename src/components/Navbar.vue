@@ -1,7 +1,7 @@
 <template>
         <b-navbar class="justify-content-between" toggleable="lg" type="dark">
           <b-navbar-brand>
-            <router-link :to="{name: 'Home'}">Medialake</router-link>
+            <router-link :to="{name: 'Home'}">MediaLake</router-link>
           </b-navbar-brand>
           <b-navbar-nav class="mr-auto">
             <b-nav-item>
@@ -51,7 +51,7 @@ export default {
 
 <style scoped>
 .navbar {
-  padding: 30px;
+  padding: 20px 30px;
   border-bottom: 1px solid #42b983;
   background: linear-gradient(160.68deg, #0F495C 0%, #0D3640 49.72%, #08141F 100%);
 
@@ -65,5 +65,8 @@ export default {
   .navbar-toggler {
     color: #42b983;
   }
+}
+.navbar-brand{
+  font-family: Cocon;
 }
 </style>

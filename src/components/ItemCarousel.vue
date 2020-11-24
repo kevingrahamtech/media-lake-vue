@@ -1,15 +1,30 @@
 <template>
-    <div>
+    <div class="row">
+        <div class="text-left">
+          <h1>{{sliderHeading}}</h1>
+        </div>
         <div class="card-carousel-wrapper">
             <div class="card-carousel--nav__left" @click="moveCarousel(-1)" :disabled="atHeadOfList"></div>
             <div class="card-carousel">
-            <div class="card-carousel--overflow-container">
-                <div class="card-carousel-cards" :style="{ transform: 'translateX' + '(' + currentOffset + 'px' + ')'}">
-                <div class="card-carousel--card mr-5" v-for="item in mediaItems" :key="item.id">
-                    <item :mediaItem="item"></item>
-                </div>
-                </div>
-            </div>
+              <div class="card-carousel--overflow-container">
+                  <div class="card-carousel-cards" :style="{ transform: 'translateX' + '(' + currentOffset + 'px' + ')'}">
+                  <div class="card-carousel--card mr-5" v-for="item in mediaItems" :key="item.id">
+                      <item :mediaItem="item"></item>
+                  </div>
+                  <div class="card-carousel--card mr-5 vertical-align-center">
+                    <div class="">
+                        <router-link :to="{ name: 'MoreResults', params: {page: 1} }">
+                            <div class="" style="font-size: 4vw; display:inline-block; height:2em; width:2em; background: #383838; padding: 3vw; border-radius: 50%;">
+                                <span style="">
+                                  <i class="fas fa-angle-double-right"></i>
+                                </span>
+                                <span style="font-size: 1.5vw">More</span>
+                            </div>
+                        </router-link>
+                    </div>
+                  </div>
+                  </div>
+              </div>
             </div>
             <div class="card-carousel--nav__right" @click="moveCarousel(1)" :disabled="atEndOfList"></div>
         </div>
@@ -28,30 +43,36 @@ export default {
     components: {
         Item
     },
-    props: ['mediaItems'],
+    props: {
+      mediaItems: {
+        type: Array,
+        default: ()=>[]
+      }, 
+      sliderHeading: String
+    },
     computed: {
-    atEndOfList() {
-      return this.currentOffset <= (this.paginationFactor * -1) * (this.mediaItems.length / this.windowSize) + this.paginationFactor;
-    },
-    atHeadOfList() {
-      return this.currentOffset === 0;
-    },
+      atEndOfList() {
+        return this.currentOffset <= (this.paginationFactor * -1) * (this.mediaItems.length / this.windowSize) + this.paginationFactor;
+      },
+      atHeadOfList() {
+        return this.currentOffset === 0;
+      },
     },
     methods: {
-    moveCarousel(direction) {
-      // Find a more elegant way to express the :style. consider using props to make it truly generic
-      if (direction === 1 && !this.atEndOfList) {
-        this.currentOffset -= this.paginationFactor;
-      } else if (direction === -1 && !this.atHeadOfList) {
-        this.currentOffset += this.paginationFactor;
+      moveCarousel(direction) {
+        // Find a more elegant way to express the :style. consider using props to make it truly generic
+        if (direction === 1 && !this.atEndOfList) {
+          this.currentOffset -= this.paginationFactor;
+        } else if (direction === -1 && !this.atHeadOfList) {
+          this.currentOffset += this.paginationFactor;
+        }
       }
-    }
     },
     data: function() {
         return {
             currentOffset: 0,
-                windowSize: 3,
-                paginationFactor: 630
+            windowSize: 3,
+            paginationFactor: 630
         }
     }
 }
@@ -69,7 +90,7 @@ export default {
 
 .card-carousel {
   display: flex;
-  justify-content: center;
+  justify-content: left;
   width: 1260px;
 }
 .card-carousel--overflow-container {
