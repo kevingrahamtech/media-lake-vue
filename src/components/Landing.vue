@@ -2,7 +2,7 @@
   <section class="container py-5">
     <div id="heading">
       <h1 class="py-3">
-        Trending
+        Recently Trending
       </h1>
     </div>
     <awesome-swiper

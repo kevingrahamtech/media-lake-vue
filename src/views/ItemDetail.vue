@@ -147,7 +147,7 @@
       <a @click="$router.go(-1).catch(e => {})">
         <span id="back" class="fas fa-chevron-left"></span>
       </a>
-      <a @click="toggleFavorite">
+      <a @click="toggleFavorite" title="Add To My List">
         <span
           class="fas fa-heart favorite"
           :class="{ active_favorite: favBool }"
@@ -185,7 +185,7 @@
         </div>
       </div>
     </section>
-    <div class="container">
+    <div class="studios_container">
       <div
         class="row justify-content-around align-items-center py-5"
         id="studios"
@@ -479,7 +479,6 @@ h2 {
 #studios {
   color: black;
   background-color: #e6e6e6;
-  border-radius: 20pt;
 }
 #review {
   background-color: rgba(67, 67, 67, 0.275);

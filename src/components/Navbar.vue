@@ -30,14 +30,14 @@
         <b-nav-item class="main-link" right>
           <router-link :to="{ name: 'Favorites' }" style="font-size: 24px;">
             <span title="Favorites" class="far fa-bookmark"
-              ><span class="icon-text"> Favorites</span></span
+              ><span class="icon-text"> My List</span></span
             >
           </router-link>
         </b-nav-item>
         <b-nav-item class="main-link" right>
           <router-link :to="{ name: 'Ratings' }" style="font-size: 24px;">
             <span title="Ratings" class="far fa-comment-alt"
-              ><span class="icon-text"> MyRatings</span></span
+              ><span class="icon-text"> My Ratings</span></span
             >
           </router-link>
         </b-nav-item>
@@ -112,7 +112,9 @@ export default {
 .navbar-brand {
   font-family: Bebas-Neue;
   font-size: 36px;
-  .router-link-exact-active {
+  color: #42b983;
+  a,
+  a:hover {
     color: #42b983;
   }
 }
